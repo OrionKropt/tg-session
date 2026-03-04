@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package telegram.v1;
+
+option go_package = "tg-session/pkg/api/telegram/v1;telegramv1";
+
+message CreateSessionRequest {}
+
+message CreateSessionResponse {
+  string session_id = 1;
+  string qr_code = 2;
+}
+
+message DeleteSessionRequest {
+  string session_id = 1;
+}
+
+message DeleteSessionResponse {}
+
+message SendMessageRequest {
+  string session_id = 1;
+  string peer = 2;
+  string text = 3;
+}
+
+message SendMessageResponse {
+  int64 message_id = 1;
+}
+
+message SubscribeMessagesRequest {
+  string session_id = 1;
+}
+
+message MessageUpdate {
+  int64 message_id = 1;
+  string from = 2;
+  string text = 3;
+  int64 timestamp = 4;
+}
