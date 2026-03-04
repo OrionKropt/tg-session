@@ -1,0 +1,96 @@
+version: 2
+
+run:
+  tests: true
+
+  timeout: 5m
+
+linters:
+  enable:
+
+    # Checking for possible logical errors
+    - govet
+    
+    # The most powerful code analyzer for Go:
+    # catches bugs, inefficiencies, and hidden errors.
+    - staticcheck
+
+    # Powerful security-oriented linter.
+    - gosec
+
+    # Fix all the misspells
+    - misspell
+
+    # Forces to not skip error check.
+    - errcheck
+
+    # Checks `Err-` prefix for var and `-Error` suffix for error type.
+    - errname
+
+    # Suggests to use `%w` for error-wrapping.
+    - errorlint
+    
+    # Checks whether HTTP response body is closed successfully.
+    - bodyclose
+    
+    # Check whether the function uses a non-inherited context.
+    - contextcheck
+    
+    #  Check for two durations multiplied together.
+    - durationcheck
+
+    # A large set of logical errors.
+    - gocritic
+  
+    # Detects when assignments to existing variables are not used
+    - ineffassign
+
+    # Finds naked/bare returns and requires change them.
+    - nakedret
+        
+    # Drop-in replacement of `golint`.
+    - revive
+    
+    # Finds slices that could potentially be pre-allocated.
+    # Small performance win + cleaner code.
+    - prealloc
+
+    # Checks that package variables are not reassigned.
+    # Super rare case but can catch bad things (like `io.EOF = nil`)
+    - reassign
+    
+    # Remove unnecessary type conversions, make code cleaner
+    - unconvert
+
+    # Must have. Finds unused declarations.
+    - unused
+    
+    # Finds wasted assignment statements.
+    - wastedassign
+
+  settings:
+    revive:
+      rules:
+        - name: exported
+          disabled: true
+        - name: package-comments
+          disabled: true
+  
+    gocritic:
+      enabled-tags:
+        - diagnostic
+        - experimental
+        - opinionated
+        - performance
+        - style
+      disabled-checks:
+        # These 3 will detect many cases, but they do sense
+        # if it's performance oriented code
+        - hugeParam
+        - rangeExprCopy
+        - rangeValCopy
+
+    govet:
+      disable:
+        - fieldalignment
+
