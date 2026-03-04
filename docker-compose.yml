@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  tg_session_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    pull_policy: build
+
+    container_name: tg_session_service_container
+    hostname: tg_session
+
+    ports:
+      - "50051:50051"
+    environment:
+      TELEGRAM_APP_ID: ${TELEGRAM_APP_ID}
+      TELEGRAM_APP_HASH: ${TELEGRAM_APP_HASH}
+      TELEGRAM_PEER_DATABASE_NAME: ${TELEGRAM_PEER_DATABASE_NAME}
+      LOG_LEVEL: ${LOG_LEVEL}
+    restart: unless-stopped
